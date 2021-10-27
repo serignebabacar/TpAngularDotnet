@@ -12,45 +12,45 @@ using Microsoft.Extensions.Hosting;
 
 namespace DutchTreat
 {
-  public class Startup
-  {
-    // This method gets called by the runtime. Use this method to add services to the container.
-    // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-    public void ConfigureServices(IServiceCollection services)
+    public class Startup
     {
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
             services.AddDbContext<DutchContext>();
             services.AddTransient<IMailService, NullMailService>();
-
+            services.AddTransient<IDutchRepository, DutchRepository>();
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
             services.AddRazorPages();
+
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                // Add Error Page
+                app.UseExceptionHandler("/error");
+            }
+
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseEndpoints(cfg =>
+            {
+                cfg.MapControllerRoute("Fallback",
+                "{controller}/{action}/{id?}",
+                new { controller = "App", action = "Index" });
+                cfg.MapRazorPages();
+            });
+        }
     }
-
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
-      else
-      {
-        // Add Error Page
-        app.UseExceptionHandler("/error");
-      }
-
-      app.UseStaticFiles();
-
-      app.UseRouting();
-
-      app.UseEndpoints(cfg =>
-      {
-        cfg.MapControllerRoute("Fallback",
-          "{controller}/{action}/{id?}",
-          new { controller = "App", action = "Index" });
-
-        cfg.MapRazorPages();
-      });
-    }
-  }
 }

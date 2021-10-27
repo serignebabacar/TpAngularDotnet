@@ -13,12 +13,12 @@ namespace DutchTreat.Controllers
   public class AppController : Controller
   {
         private readonly IMailService _mailService;
-        private readonly DutchContext context;
+        private readonly IDutchRepository _repository;
 
-        public AppController(IMailService mailService,DutchContext context )
+        public AppController(IMailService mailService, IDutchRepository repository)
         {
              _mailService = mailService;
-            this.context = context;
+            this._repository = repository;
         }
 
         public IActionResult Index()
@@ -38,11 +38,10 @@ namespace DutchTreat.Controllers
             if (ModelState.IsValid)
             {
                 // Send the Email
-                _mailService.SendMessage("shawn@wildermuth.com", model.Subject, $"From: {model.Name} - {model.Email}, Message: {model.Message}");
+                _mailService.SendMessage("bdiop68@gmail.com", model.Subject, $"From: {model.Name} - {model.Email}, Message: {model.Message}");
                 ViewBag.UserMessage = "Mail Sent...";
                 ModelState.Clear();
             }
-
             return View();
         }
 
@@ -52,11 +51,8 @@ namespace DutchTreat.Controllers
         }
         public IActionResult Shop()
         {
-            
-            var  resutls= from p in context.Products
-                         orderby p.Category
-                         select p;
-            return View(resutls.ToList());
+            var resutls =  _repository.GetAllProducts();
+            return View(resutls);
         }
   }
 }
