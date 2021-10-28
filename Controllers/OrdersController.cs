@@ -25,6 +25,7 @@ namespace DutchTreat.Controllers
         {
             try
             {
+                _logger.LogInformation($"Get Orders");
                 return Ok(_repository.GetAllOrders());
             }
             catch (Exception e)
@@ -38,7 +39,7 @@ namespace DutchTreat.Controllers
         {
             try
             {
-                _logger.LogError($"Get Order id : {id}");
+                _logger.LogInformation($"Get Order id : {id}");
                 var order = _repository.GetOrderById(id);
                 if (order != null)
                     return Ok(order);
