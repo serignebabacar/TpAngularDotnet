@@ -334,5 +334,19 @@
     "ArtistBirthDate": "1632-10-31T00:00:00",
     "ArtistDeathDate": "1675-12-15T00:00:00",
     "ArtistNationality": "Noord-Nederlands"
+  },
+  {
+    "Id": 0,
+    "Category": "baBACAR",
+    "Size": "baBACAR",
+    "Price": 29.99,
+    "Title": "View of Houses in Delft, Known as The Little Street",
+    "ArtDescription": "This is an unusual painting in Vermeer\u2019s oeuvre, and remarkable for its time as a portrait of ordinary houses. The composition is as exciting as it is balanced. The old walls with their bricks, whitewash, and cracks are almost tangible. The location is Vlamingstraat 40\u201342 in Delft. Vermeer\u2019s\naunt Ariaentgen Claes lived in the house at the right, with her children, from around 1645 until her death in 1670.",
+    "ArtDating": "c. 1658",
+    "ArtId": "6",
+    "Artist": "Johannes Vermeer",
+    "ArtistBirthDate": "1632-10-31T00:00:00",
+    "ArtistDeathDate": "1675-12-15T00:00:00",
+    "ArtistNationality": "Noord-Nederlands"
   }
 ]

@@ -4,14 +4,16 @@ using DutchTreat.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DutchTreat.Migrations
 {
     [DbContext(typeof(DutchContext))]
-    partial class DutchContextModelSnapshot : ModelSnapshot
+    [Migration("20211028135823_InitialDb")]
+    partial class InitialDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace DutchTreat.Migrations
                         new
                         {
                             Id = 1,
-                            OrderDate = new DateTime(2021, 10, 28, 14, 13, 15, 425, DateTimeKind.Utc).AddTicks(6556),
+                            OrderDate = new DateTime(2021, 10, 28, 13, 58, 23, 299, DateTimeKind.Utc).AddTicks(3140),
                             OrderNumber = "12345"
                         });
                 });
@@ -51,6 +53,12 @@ namespace DutchTreat.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CurrentOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentProductId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");

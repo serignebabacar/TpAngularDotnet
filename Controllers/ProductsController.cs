@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 namespace DutchTreat.Controllers
 {
     [Route("api/[Controller]")]
-    public class ProductsController : Controller
+    [ApiController]
+    [Produces("application/json")]
+    public class ProductsController : ControllerBase
     {
         private readonly IDutchRepository _repository;
         private readonly ILogger<ProductsController> _logger;
@@ -21,18 +23,18 @@ namespace DutchTreat.Controllers
             this._logger = logger;
         }
         [HttpGet]
-        public IEnumerable<Product> Get()
+        [ProducesResponseType(200)]
+        public ActionResult<IEnumerable<Product>> Get()
         {
             try
             {
-                return _repository.GetAllProducts();
+                return Ok(_repository.GetAllProducts());
             }
             catch (Exception e)
             {
-                _logger.LogError($"Failded to get products  {e}");
-                return null;
+                _logger.LogError($"Failed to get products  {e}");
+                return BadRequest("Failed to get products");
             }
-           
         }
     }
 }
