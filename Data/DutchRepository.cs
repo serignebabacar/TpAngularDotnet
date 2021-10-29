@@ -59,17 +59,20 @@ namespace DutchTreat.Data
             
         }
 
-       
-
         public IEnumerable<Product> GetProductsByCategory(String category)
         {
             return _context.Products
                            .Where(product => product.Category == category)
                            .ToList();
         }
-        public bool SaveChanges()
+        public bool SaveAll()
         {
             return _context.SaveChanges() > 0;
+        }
+
+        public void AddEntity(object model)
+        {
+            _context.Add(model);
         }
     }
 }

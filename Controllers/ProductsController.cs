@@ -24,6 +24,7 @@ namespace DutchTreat.Controllers
         }
         [HttpGet]
         [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public ActionResult<IEnumerable<Product>> Get()
         {
             try
