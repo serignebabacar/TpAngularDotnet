@@ -2,18 +2,20 @@
 using DutchTreat.Data;
 using DutchTreat.Data.Entities;
 using DutchTreat.ViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DutchTreat.Controllers
 {
     [Route("/api/orders/{orderid}/items")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
     public class OrderItemsController:Controller
     {
         private readonly IDutchRepository _repository;
@@ -32,7 +34,8 @@ namespace DutchTreat.Controllers
         {
             try
             {
-                var order = _repository.GetOrderById(orderId);
+                string username = User.Identity.Name;
+                var order = _repository.GetOrderById(username,orderId);
                 if (order != null)
                 {
                     return Ok(_mapper.Map<IEnumerable<OrderItem>, IEnumerable<OrderItemViewModel>>(order.Items));
@@ -51,7 +54,8 @@ namespace DutchTreat.Controllers
         {
             try
             {
-                var order = _repository.GetOrderById(orderId);
+                string username = User.Identity.Name;
+                var order = _repository.GetOrderById(username,orderId);
                 if (order != null)
                 {
                     var item = order.Items.Where(i => i.Id == id).FirstOrDefault();

@@ -18,7 +18,7 @@ namespace DutchTreat.Controllers
 
         public AppController(IMailService mailService, IDutchRepository repository)
         {
-             _mailService = mailService;
+            _mailService = mailService;
             this._repository = repository;
         }
 

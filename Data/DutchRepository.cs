@@ -18,9 +18,26 @@ namespace DutchTreat.Data
             this._context = dutchContext;
             this._logger = logger;
         }
-        public Order GetOrderById(int id)
+        public IEnumerable<Order> GetAllOrdersByUser(string username)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllOrders was called ");
+                return _context.Orders
+                                .Where(u => u.User.UserName== username)
+                                .Include(o => o.Items)
+                                .ThenInclude(p => p.Product)
+                                .ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public Order GetOrderById(string username, int id)
         {
             return _context.Orders
+                                .Where(u=>u.User.UserName==username)
                                 .Include(o => o.Items)
                                 .ThenInclude(p => p.Product)
                                 .Where(o => o.Id == id)

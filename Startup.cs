@@ -88,7 +88,6 @@ namespace DutchTreat
                 cfg.MapControllerRoute("Fallback",
                   "{controller}/{action}/{id?}",
                   new { controller = "App", action = "Index" });
-
                 cfg.MapRazorPages();
             });
         }
