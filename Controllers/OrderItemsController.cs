@@ -2,6 +2,7 @@
 using DutchTreat.Data;
 using DutchTreat.Data.Entities;
 using DutchTreat.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace DutchTreat.Controllers
 {
     [Route("/api/orders/{orderid}/items")]
+    [Authorize]
     public class OrderItemsController:Controller
     {
         private readonly IDutchRepository _repository;
